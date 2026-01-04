@@ -1,25 +1,36 @@
-import Link from "next/link"
-import DesktopNavbar from "./DesktopNavbar"
-import MobileNavbar from "./MobileNavbar"
+import Link from "next/link";
+import DesktopNavbar from "./DesktopNavbar";
+import MobileNavbar from "./MobileNavbar";
+import { UserButton } from "@clerk/nextjs";
 
 function Navbar() {
   return (
-    <nav className="sticky top-0 w-full border-b bg-background/95 
-    backdrop-blur z-50 ">
+    <nav
+      className="sticky top-0 w-full border-b bg-background/95 
+    backdrop-blur z-50 "
+    >
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold text-primary font-mono tracking-wider">
+            <Link
+              href="/"
+              className="text-xl font-bold text-primary font-mono tracking-wider"
+            >
               ZDM
             </Link>
           </div>
 
-          <DesktopNavbar/>
-          <MobileNavbar/>
+          <DesktopNavbar />
+
+          <div className="hidden md:flex">
+            <UserButton />
+          </div>
+
+          <MobileNavbar />
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
