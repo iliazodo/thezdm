@@ -6,8 +6,8 @@ import { UserButton } from "@clerk/nextjs";
 function Navbar() {
   return (
     <nav
-      className="sticky top-0 left-0 w-full border-b bg-background/60 
-    backdrop-blur-sm  z-50"
+      className="sticky top-0 left-0 w-full border-b bg-background/5 
+    backdrop-blur-sm z-50"
     >
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
