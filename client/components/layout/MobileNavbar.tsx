@@ -5,12 +5,19 @@ import ModeToggle from "../ModeToggle";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
-import { BellIcon, Ghost, HomeIcon, LogOutIcon, MenuIcon, UserIcon } from "lucide-react";
+import {
+  BellIcon,
+  Ghost,
+  HomeIcon,
+  LogOutIcon,
+  MenuIcon,
+  Toolbox,
+  UserIcon,
+} from "lucide-react";
 import Link from "next/link";
 
 const MobileNavbar = () => {
@@ -33,6 +40,8 @@ const MobileNavbar = () => {
             <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
           <nav className="flex flex-col space-y-4 mt-6">
+            {/* Home */}
+
             <Button
               variant="ghost"
               className="flex items-center gap-3 justify-start"
@@ -43,6 +52,21 @@ const MobileNavbar = () => {
                 Home
               </Link>
             </Button>
+
+            {/* Tools */}
+
+            <Button
+              variant="ghost"
+              className="flex items-center gap-3 justify-start"
+              asChild
+            >
+              <Link href="/tools">
+                <Toolbox className="w-4 h-4" />
+                Tools
+              </Link>
+            </Button>
+
+            {/* Notifications & Profile & Login */}
 
             {isSignedIn ? (
               <>
@@ -61,16 +85,17 @@ const MobileNavbar = () => {
                   className="flex items-center gap-3 justify-start"
                   asChild
                 >
-                  <Link
-                    href={`/profile`}
-                  >
+                  <Link href={`/profile`}>
                     <UserIcon className="w-4 h-4" />
                     Profile
                   </Link>
                 </Button>
                 <SignOutButton>
-                  <Button variant="ghost" className="flex items-center gap-3 justify-start">
-                    <LogOutIcon className="h-4 w-4"/>
+                  <Button
+                    variant="ghost"
+                    className="flex items-center gap-3 justify-start"
+                  >
+                    <LogOutIcon className="h-4 w-4" />
                     Logout
                   </Button>
                 </SignOutButton>
@@ -78,7 +103,9 @@ const MobileNavbar = () => {
             ) : (
               <>
                 <SignInButton mode="modal">
-                  <Button variant="default" className="w-full">Sign In</Button>
+                  <Button variant="default" className="w-full">
+                    Sign In
+                  </Button>
                 </SignInButton>
               </>
             )}

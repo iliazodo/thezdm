@@ -30,7 +30,7 @@ export default function ParticleBackground() {
     const influenceRadius = 100;
     const influenceForce = 1;
     const friction = 1; // linear movement
-    const maxSpeed = 0.05; // slower speed
+    const maxSpeed = 0.07; // slower speed
 
     const mouse = { x: 0, y: 0, active: false };
 
