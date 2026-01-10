@@ -1,9 +1,7 @@
 "use client";
 import { SignInButton, SignOutButton, useAuth } from "@clerk/nextjs";
-import { useTheme } from "next-themes";
-import { useState } from "react";
-import { Button } from "./ui/button";
-import ModeToggle from "./ModeToggle";
+import { Button } from "../ui/button";
+import ModeToggle from "../ModeToggle";
 import {
   Sheet,
   SheetContent,
@@ -11,7 +9,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "./ui/sheet";
+} from "../ui/sheet";
 import { BellIcon, Ghost, HomeIcon, LogOutIcon, MenuIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -30,7 +28,7 @@ const MobileNavbar = () => {
             <MenuIcon className="h-5 w-5" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="right" className="w-[300px]">
+        <SheetContent side="right" className="w-75">
           <SheetHeader>
             <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
