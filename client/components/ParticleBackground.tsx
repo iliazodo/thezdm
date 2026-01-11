@@ -19,22 +19,21 @@ export default function ParticleBackground() {
     const ctx = canvas.getContext("2d")!;
     let particles: Particle[] = [];
 
-    // Particle settings per screen size
     const particleSettings = {
-      mobile: { count: 600, size: 1 },
-      tablet: { count: 800, size: 1.2 },
-      desktop: { count: 1000, size: 1.5 },
+      mobile: { count: 700, size: 1 },
+      tablet: { count: 900, size: 1.2 },
+      desktop: { count: 1100, size: 1.5 },
     };
 
     const connectDistance = 40;
-    const influenceRadius = 100;
-    const influenceForce = 1;
-    const friction = 1; // linear movement
-    const maxSpeed = 0.07; // slower speed
+    const influenceRadius = 70;
+    const influenceForce = 0.3;
+    const friction = 1;
+    const maxSpeed = 0.05;
 
     const mouse = { x: 0, y: 0, active: false };
+    let lastWidth = window.innerWidth;
 
-    // Mouse events
     const onMove = (e: MouseEvent) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
@@ -45,7 +44,6 @@ export default function ParticleBackground() {
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseleave", onLeave);
 
-    // Determine particle count/size by width
     const getParticleConfig = () => {
       const w = window.innerWidth;
       if (w < 640) return particleSettings.mobile;
@@ -53,7 +51,6 @@ export default function ParticleBackground() {
       return particleSettings.desktop;
     };
 
-    // Initialize particles
     const initParticles = () => {
       const { count, size } = getParticleConfig();
       particles = [];
@@ -68,25 +65,29 @@ export default function ParticleBackground() {
       }
     };
 
-    // Resize canvas
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
       ctx.resetTransform?.();
       ctx.scale(dpr, dpr);
-      initParticles();
+
+      // ONLY reset when width changes
+      if (window.innerWidth !== lastWidth) {
+        lastWidth = window.innerWidth;
+        initParticles();
+      }
     };
 
     window.addEventListener("resize", resize);
-    resize();
 
-    // Animation loop
+    resize();
+    initParticles(); // ✅ REQUIRED initial spawn
+
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const color = theme === "light" ? "#000" : "#fff";
 
-      // Draw connections
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const p1 = particles[i];
@@ -108,14 +109,11 @@ export default function ParticleBackground() {
         }
       }
 
-      // Draw particles
       particles.forEach((p) => {
-        // Mouse repulsion
         if (mouse.active) {
           const dx = p.x - mouse.x;
           const dy = p.y - mouse.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-
           if (dist < influenceRadius && dist > 0.1) {
             const strength =
               (1 - dist / influenceRadius) * influenceForce;
@@ -124,26 +122,21 @@ export default function ParticleBackground() {
           }
         }
 
-        // Friction (linear movement)
         p.vx *= friction;
         p.vy *= friction;
 
-        // Limit speed
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
         if (speed > maxSpeed) {
           p.vx = (p.vx / speed) * maxSpeed;
           p.vy = (p.vy / speed) * maxSpeed;
         }
 
-        // Move particle
         p.x += p.vx;
         p.y += p.vy;
 
-        // Bounce on edges
         if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
 
-        // Draw
         ctx.fillStyle = color;
         ctx.globalAlpha = 0.8;
         ctx.beginPath();
