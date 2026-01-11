@@ -1,5 +1,4 @@
 "use client";
-import { SignInButton, SignOutButton, useAuth } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import ModeToggle from "../ModeToggle";
 import {
@@ -11,17 +10,17 @@ import {
 } from "../ui/sheet";
 import {
   BellIcon,
-  Ghost,
   HomeIcon,
+  Info,
   LogOutIcon,
   MenuIcon,
+  Notebook,
   Toolbox,
   UserIcon,
 } from "lucide-react";
 import Link from "next/link";
 
 const MobileNavbar = () => {
-  const { isSignedIn } = useAuth();
 
   return (
     <div className="flex md:hidden items-center space-x-2">
@@ -39,6 +38,9 @@ const MobileNavbar = () => {
           <SheetHeader>
             <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
+
+          <Button className="w-11/12 mx-auto">Log in</Button>
+
           <nav className="flex flex-col space-y-4 mt-6">
             {/* Home */}
 
@@ -66,49 +68,31 @@ const MobileNavbar = () => {
               </Link>
             </Button>
 
-            {/* Notifications & Profile & Login */}
+            {/* Blog */}
 
-            {isSignedIn ? (
-              <>
-                <Button
-                  variant="ghost"
-                  className="flex items-center gap-3 justify-start"
-                  asChild
-                >
-                  <Link href="/notifications">
-                    <BellIcon className="w-4 h-4" />
-                    Notifications
-                  </Link>
-                </Button>
-                <Button
-                  variant="ghost"
-                  className="flex items-center gap-3 justify-start"
-                  asChild
-                >
-                  <Link href={`/profile`}>
-                    <UserIcon className="w-4 h-4" />
-                    Profile
-                  </Link>
-                </Button>
-                <SignOutButton>
-                  <Button
-                    variant="ghost"
-                    className="flex items-center gap-3 justify-start"
-                  >
-                    <LogOutIcon className="h-4 w-4" />
-                    Logout
-                  </Button>
-                </SignOutButton>
-              </>
-            ) : (
-              <>
-                <SignInButton mode="modal">
-                  <Button variant="default" className="w-full">
-                    Sign In
-                  </Button>
-                </SignInButton>
-              </>
-            )}
+            <Button
+              variant="ghost"
+              className="flex items-center gap-3 justify-start"
+              asChild
+            >
+              <Link href="/tools">
+                <Notebook className="w-4 h-4" />
+                Blog
+              </Link>
+            </Button>
+
+            {/* About */}
+
+            <Button
+              variant="ghost"
+              className="flex items-center gap-3 justify-start"
+              asChild
+            >
+              <Link href="/tools">
+                <Info className="w-4 h-4" />
+                Abuot
+              </Link>
+            </Button>
           </nav>
         </SheetContent>
       </Sheet>

@@ -2,8 +2,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import ModeToggle from "../ModeToggle";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { BellIcon, HomeIcon, Toolbox, UserIcon } from "lucide-react";
-import { SignInButton } from "@clerk/nextjs";
+import { HomeIcon, Info, Notebook, Toolbox, UserIcon } from "lucide-react";
 
 const DesktopNavbar = async () => {
   const user = await currentUser();
@@ -26,39 +25,28 @@ const DesktopNavbar = async () => {
       <Button variant="ghost" className="flex items-center gap-2" asChild>
         <Link href="/">
           <Toolbox className="w-4 h-4" />
-          <span className="hidden lg:inline">tools</span>
+          <span className="hidden lg:inline">Tools</span>
         </Link>
       </Button>
 
-      {/* Navigations & Profile & logaout */}
+      {/* Tools */}
 
-      {user ? (
-        <>
-          <Button variant="ghost" className="flex items-center gap-2" asChild>
-            <Link href="/notifications">
-              <BellIcon className="w-4 h-4" />
-              <span className="hidden lg:inline ">Notifications</span>
-            </Link>
-          </Button>
-          <Button variant="ghost" className="flex items-center gap-2" asChild>
-            <Link
-              href={`/profile/${
-                user.username ??
-                user.emailAddresses[0].emailAddress.split("@")[0]
-              }`}
-            >
-              <UserIcon className="w-4 h-4" />
-              <span className="hidden lg:inline">Profile</span>
-            </Link>
-          </Button>
-        </>
-      ) : (
-        <>
-          <SignInButton mode="modal">
-            <Button variant="default">Sign In</Button>
-          </SignInButton>
-        </>
-      )}
+      <Button variant="ghost" className="flex items-center gap-2" asChild>
+        <Link href="/">
+          <Notebook className="w-4 h-4" />
+          <span className="hidden lg:inline">Blog</span>
+        </Link>
+      </Button>
+
+      {/* About */}
+
+      <Button variant="ghost" className="flex items-center gap-2" asChild>
+        <Link href="/">
+          <Info className="w-4 h-4" />
+          <span className="hidden lg:inline">About</span>
+        </Link>
+      </Button>
+      
     </div>
   );
 };

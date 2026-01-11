@@ -2,6 +2,7 @@ import Link from "next/link";
 import DesktopNavbar from "./DesktopNavbar";
 import MobileNavbar from "./MobileNavbar";
 import { UserButton } from "@clerk/nextjs";
+import { Button } from "../ui/button";
 
 function Navbar() {
   return (
@@ -23,7 +24,7 @@ function Navbar() {
           <DesktopNavbar />
 
           <div className="hidden md:flex">
-            <UserButton />
+            <Button variant="outline">Log in</Button>
           </div>
 
           <MobileNavbar />
