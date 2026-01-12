@@ -12,7 +12,9 @@ import { connectDB } from "./lib/db.js";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3030;
+
+app.use(express.json());
 
 app.use("/api/ussers" , userRoutes);
 app.use("/api/auth" , authRoutes);
